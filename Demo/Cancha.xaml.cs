@@ -29,17 +29,19 @@ namespace CAE.Demo
                 {
                     TaskID = taskID
                 });
-                var result = await conn.ReceiveMessage<回传残差数据>();
-                if (result == null || !result.Success)
+                Result<回传残差数据> result;
+                do
                 {
-                    VM.Instance.Alert = "获取残差数据失败:" + result.Message;
-                    return false;
-                }
-                VM.Instance.Cancha += result.Data.Result;
-                if (result.Data.IsEnd)
-                {
-                    conn.Dispose();
-                }
+                    result = await conn.ReceiveMessage<回传残差数据>();
+                    if (result == null || !result.Success)
+                    {
+                        VM.Instance.Alert = "获取残差数据失败:" + result.Message;
+                        conn.Dispose();
+                        return false;
+                    }
+                    VM.Instance.Cancha += result.Data.Result;
+                } while (result.Data.IsEnd);
+                conn.Dispose();
             }
             catch (Exception ex)
             {
