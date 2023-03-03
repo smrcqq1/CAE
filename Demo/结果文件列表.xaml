@@ -1,0 +1,44 @@
+﻿<Window x:Class="CAE.Demo.结果文件列表"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CAE.Demo"
+        mc:Ignorable="d"
+        Title="结果文件列表" Height="450" Width="600" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+        </StackPanel>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Files}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="140" Header="文件名称" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Width="140" Header="大小" Binding="{Binding LengthStr}"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="*" Header="下载进度">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ProgressBar Maximum="{Binding Length}" Value="{Binding Process}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="140" Header="操作">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=1}" Click="btn_Down_Click">下载</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
