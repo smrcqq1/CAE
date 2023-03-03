@@ -41,7 +41,6 @@ namespace CAE.Demo
                     }
                     VM.Instance.Cancha += result.Data.Result;
                 } while (result.Data.IsEnd);
-                conn.Dispose();
             }
             catch (Exception ex)
             {
