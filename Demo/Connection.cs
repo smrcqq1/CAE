@@ -136,9 +136,9 @@ namespace CAE.Demo
                     var data = Newtonsoft.Json.JsonConvert.DeserializeObject<Result<T>>(str);
                     return data;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    return new Result<T>("服务器返回的消息无法被正确序列化:" + ex.Message);
+                    return new Result<T>("服务器返回的消息无法被正确序列化:" + str);
                 }
             }
             catch (Exception ex)
@@ -170,9 +170,9 @@ namespace CAE.Demo
                     var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CommonResult>(str);
                     return data;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    return new CommonResult("服务器返回的消息无法被正确序列化:" + ex.Message);
+                    return new CommonResult("服务器返回的消息无法被正确序列化:" + str);
                 }
             }
             catch (Exception ex)
