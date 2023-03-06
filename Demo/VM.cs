@@ -111,7 +111,8 @@ namespace CAE.Demo
                 File = files.Select(o => { var f = new System.IO.FileInfo(o); return new UploadFile() { FileName = f.Name, FileSize = (int)f.Length }; }).ToArray(),
                 TaskID = Guid.NewGuid()
             };
-            var res = await Connection.Send(request);
+            var conn = new Connection();
+            var res = await conn.Send(request);
             if (!res)
             {
                 return false;
@@ -120,7 +121,7 @@ namespace CAE.Demo
             {
                 foreach (var item in files)
                 {
-                    if (!await 发送文件(item))
+                    if (!await 发送文件(conn,item))
                     {
                         Alert = "发送文件失败:" + item;
                         return false;
@@ -135,17 +136,16 @@ namespace CAE.Demo
             }
             return false;
         }
-        Connection UploadConnection = new Connection();
         private List<用户信息> userList;
 
-        async Task<bool> 发送文件(string file)
+        async Task<bool> 发送文件(Connection conn,string file)
         {
             using (var fs = new FileStream(file, FileMode.Open))
             {
                 int len = (int)fs.Length;
                 var buffer = new byte[len];
                 fs.Read(buffer, 0, len);
-                return await UploadConnection.Send(buffer);
+                return await conn.Send(buffer);
             }
         }
         #endregion 创建任务
