@@ -21,7 +21,6 @@ namespace CAE.DTO
     {
         public Guid ID { get; set; }
         public string Name { get; set; }
-        public string Files { get; set; }
 
         public DateTime? CreateTime { get; set; }
 

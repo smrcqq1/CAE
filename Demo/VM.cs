@@ -139,7 +139,7 @@ namespace CAE.Demo
                     }
                 }
                 Alert = "创建任务成功";
-                return await 刷新任务清单();
+                return await RefreshTasks();
             }
             catch (Exception ex)
             {
