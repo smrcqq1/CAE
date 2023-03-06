@@ -46,44 +46,58 @@ namespace CAE.Demo.ViewModels
 
         #region 下载指定的结果文件
         const int SizePerDown = 1024;
-        public async Task<bool> 下载指定的结果文件(任务 task,FileInfoVM file)
+        public async Task<bool> 下载指定的结果文件(任务 task, FileInfoVM file)
         {
             VM.Instance.Alert = "开始下载：" + file.Name;
-            file.Process = 0;
-            var path = Path.Combine(System.Environment.CurrentDirectory,"结果文件",task.Name,file.Name);
-            using (var conn = new Connection())
+            try
             {
-                var len = file.Length;
-                using (var fs = new FileStream(path, FileMode.Create))
+                file.Process = 0;
+                var dir = Path.Combine(System.Environment.CurrentDirectory, "结果文件", task.Name);
+                if (!Directory.Exists(dir))
                 {
-                    fs.SetLength(len);
-                    while (file.Process < len)
+                    Directory.CreateDirectory(dir);
+                }
+                var path = Path.Combine(dir, file.Name);
+                using (var conn = new Connection())
+                {
+                    var len = file.Length;
+                    using (var fs = new FileStream(path, FileMode.Create))
                     {
-                        var end = file.Process + SizePerDown;
-                        if (end > len)
+                        fs.SetLength(len);
+                        while (file.Process < len)
                         {
-                            end = len;
+                            var end = file.Process + SizePerDown;
+                            if (end > len)
+                            {
+                                end = len;
+                            }
+                            var res = await conn.Send(new DownLoadFileRequest()
+                            {
+                                FullName = file.FullName,
+                                Start = file.Process,
+                                End = end
+                            });
+                            if (!res)
+                            {
+                                VM.Instance.Alert = "下载出错:" + file.Name;
+                                file.Process = -1;
+                                return false;
+                            }
+                            var cnt = end - file.Process;
+                            var data = await conn.ReceiveData(cnt);
+                            await fs.WriteAsync(data, file.Process, cnt);
+                            file.Process = end;
                         }
-                        var res = await conn.Send(new DownLoadFileRequest()
-                        {
-                            FullName = file.FullName,
-                            Start = file.Process,
-                            End = end
-                        });
-                        if (!res)
-                        {
-                            VM.Instance.Alert = "下载出错:" + file.Name;
-                            file.Process = -1;
-                            return false;
-                        }
-                        var cnt = end - file.Process;
-                        var data = await conn.ReceiveData(cnt);
-                        await fs.WriteAsync(data, file.Process, cnt);
-                        file.Process = end;
                     }
                 }
+                file.Process = file.Length;
             }
-            file.Process = file.Length;
+            catch (Exception ex)
+            {
+                VM.Instance.Alert = "下载异常:" + ex.Message;
+                file.Process = -1;
+                return false;
+            }
             return true;
         }
         #endregion 下载指定的结果文件
