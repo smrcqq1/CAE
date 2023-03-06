@@ -133,8 +133,8 @@ namespace CAE.Demo
                 }
                 try
                 {
-                    var data = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
-                    return new Result<T>(data);
+                    var data = Newtonsoft.Json.JsonConvert.DeserializeObject<Result<T>>(str);
+                    return data;
                 }
                 catch (Exception ex)
                 {

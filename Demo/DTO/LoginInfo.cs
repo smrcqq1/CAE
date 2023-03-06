@@ -28,7 +28,7 @@ namespace CAE.DTO
             {
                 type = type,
                 state = 500,
-                msg = message
+                message = message
             };
             return res;
         }

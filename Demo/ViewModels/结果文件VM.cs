@@ -28,9 +28,9 @@ namespace CAE.Demo.ViewModels
                 VM.Instance.Alert = "获取任务结果文件列表失败";
                 return false;
             }
-            if (!string.IsNullOrEmpty(result.msg))
+            if (!string.IsNullOrEmpty(result.message))
             {
-                VM.Instance.Alert = result.msg;
+                VM.Instance.Alert = result.message;
                 return false;
             }
             VM.Instance.Alert = "获取任务结果文件列表成功";

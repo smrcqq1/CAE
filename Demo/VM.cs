@@ -87,7 +87,7 @@ namespace CAE.Demo
             }
             if (!result.Success)
             {
-                Message = result.msg;
+                Message = result.message;
                 return false;
             }
             if (result.Data != null && !string.IsNullOrEmpty(result.Data.token))
@@ -220,12 +220,12 @@ namespace CAE.Demo
             }
             if (!result.Success)
             {
-                if (string.IsNullOrEmpty(result.msg))
+                if (string.IsNullOrEmpty(result.message))
                 {
                     Alert = failMessage;
                     return false;
                 }
-                Alert = result.msg;
+                Alert = result.message;
                 return false;
             }
             return true;
@@ -248,7 +248,7 @@ namespace CAE.Demo
             var result = await Connection.ReceiveMessage();
             if (result == null || !result.Success)
             {
-                Alert = "修改密码失败" + result.msg; return false;
+                Alert = "修改密码失败" + result.message; return false;
             }
             return true;
         }
@@ -265,7 +265,7 @@ namespace CAE.Demo
             var result = await Connection.ReceiveMessage<List<用户信息>>();
             if(result == null || !result.Success)
             {
-                Alert = "获取用户列表失败" + result.msg; ;
+                Alert = "获取用户列表失败" + result.message; ;
                 return false;
             }
             UserList = result.Data;
@@ -300,7 +300,7 @@ namespace CAE.Demo
             await RefreshUsers();
             if (result == null || !result.Success)
             {
-                Alert = "新增用户失败:" + result.msg;
+                Alert = "新增用户失败:" + result.message;
                 return false;
             }
             return true;
@@ -322,7 +322,7 @@ namespace CAE.Demo
             await RefreshUsers();
             if (result == null || !result.Success)
             {
-                Alert = "删除用户失败:" + result.msg;
+                Alert = "删除用户失败:" + result.message;
                 return false;
             }
             return true;
