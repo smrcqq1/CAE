@@ -40,12 +40,10 @@ namespace CAE.DTO
 
         public override MessageType type => MessageType.登录;
     }
-    public class LoginResult : DTOBase
+    public class LoginResult
     {
         public string token { get; set; }
         public bool isAdmin { get; set; }
-
-        public override MessageType type => MessageType.登录;
     }
     public class AddUserRequest : LoginedRequest
     {
@@ -58,7 +56,7 @@ namespace CAE.DTO
     {
         public Guid id { get; set; }
 
-        public override MessageType type => MessageType.注册;
+        public override MessageType type => MessageType.删除用户;
     }
     public class 修改密码 : LoginedRequest
     {

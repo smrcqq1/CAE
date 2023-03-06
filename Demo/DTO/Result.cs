@@ -1,17 +1,17 @@
 ﻿namespace CAE.DTO
 {
-    internal class Result<T>
+    internal class Result<T> : CommonResult
     {
-        public Result(string message) {
-            Message = message;
+        public Result(string message) : base(message) {
         }
-        public Result(T data)
+        public Result(T data) :base("")
         {
             Data = data;
-            Success = true;
+            state = 1;
         }
-        public bool Success { get; set; } = false;
         public T Data { get; set; }
-        public string Message { get; set; }
+        public int state { get; set; }
+        public string msg { get; set; }
+        public MessageType type { get; set; }
     }
 }

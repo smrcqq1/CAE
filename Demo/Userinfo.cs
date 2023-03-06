@@ -6,8 +6,8 @@ namespace CAE.Demo
     {
         private string username = "cae";
         private string password = "123";
-        private string serverAddress = "127.0.0.1";
-        private int? port = 6000;
+        private string serverAddress = "192.168.12.131";
+        private int? port = 8010;
         private string token;
         private bool isAdmin = false;
         private string newPassword;

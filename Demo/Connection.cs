@@ -146,6 +146,40 @@ namespace CAE.Demo
                 return new Result<T>("接受消息发生异常:" + ex.Message);
             }
         }
+        public async Task<CommonResult> ReceiveMessage()
+        {
+            try
+            {
+                if (!client.Connected || stream == null)
+                {
+                    return new CommonResult("请先建立连接");
+                }
+                var len = new byte[4];
+                await stream.ReadAsync(len, 0, 4);
+                var length = BitConverter.ToInt32(len, 0);
+                var buffer = new byte[length];
+                await stream.ReadAsync(buffer, 0, length);
+                var str = System.Text.Encoding.UTF8.GetString(buffer);
+                VM.Instance.Message = str;
+                if (string.IsNullOrEmpty(str))
+                {
+                    return new CommonResult("服务器端返回空字符串");
+                }
+                try
+                {
+                    var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CommonResult>(str);
+                    return data;
+                }
+                catch (Exception ex)
+                {
+                    return new CommonResult("服务器返回的消息无法被正确序列化:" + ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new CommonResult("接受消息发生异常:" + ex.Message);
+            }
+        }
         public async Task<byte[]> ReceiveData()
         {
             var len = await ReceiveData(4);

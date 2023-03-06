@@ -87,7 +87,7 @@ namespace CAE.Demo
             }
             if (!result.Success)
             {
-                Message = result.Message;
+                Message = result.msg;
                 return false;
             }
             if (result.Data != null && !string.IsNullOrEmpty(result.Data.token))
@@ -179,14 +179,14 @@ namespace CAE.Demo
         }
         public async Task<bool> 刷新任务清单()
         {
-            var result = await Connection.ReceiveMessage<刷新任务列表>();
+            var result = await Connection.ReceiveMessage<任务[]>();
             if (result == null || !result.Success)
             {
                 Alert = "刷新任务列表失败";
                 return false;
             }
             Alert = "刷新任务列表成功";
-            Tasks = result.Data.Tasks;
+            Tasks = result.Data;
             return true;
         }
         #endregion 刷新任务清单
@@ -212,7 +212,7 @@ namespace CAE.Demo
                 Alert = "发送请求失败:" + failMessage;
                 return false;
             }
-            var result = await Connection.ReceiveMessage<CommonResult>();
+            var result = await Connection.ReceiveMessage();
             if (result == null)
             {
                 Alert = failMessage;
@@ -220,12 +220,12 @@ namespace CAE.Demo
             }
             if (!result.Success)
             {
-                if (result.Data == null || string.IsNullOrEmpty(result.Data.msg))
+                if (string.IsNullOrEmpty(result.msg))
                 {
                     Alert = failMessage;
                     return false;
                 }
-                Alert = result.Data.msg;
+                Alert = result.msg;
                 return false;
             }
             return true;
@@ -245,10 +245,10 @@ namespace CAE.Demo
                 newpassword = Userinfo.NewPassword
             });
             if (!res) { Alert = "发送修改密码请求失败"; return false; }
-            var result = await Connection.ReceiveMessage<CommonResult>();
+            var result = await Connection.ReceiveMessage();
             if (result == null || !result.Success)
             {
-                Alert = "修改密码失败" + result.Message; return false;
+                Alert = "修改密码失败" + result.msg; return false;
             }
             return true;
         }
@@ -265,7 +265,7 @@ namespace CAE.Demo
             var result = await Connection.ReceiveMessage<List<用户信息>>();
             if(result == null || !result.Success)
             {
-                Alert = "获取用户列表失败" + result.Message; ;
+                Alert = "获取用户列表失败" + result.msg; ;
                 return false;
             }
             UserList = result.Data;
@@ -296,11 +296,11 @@ namespace CAE.Demo
                 username =Userinfo.AddUserName,
                 password =Userinfo.AddPassword,
             });
-            var result = await Connection.ReceiveMessage<CommonResult>();
+            var result = await Connection.ReceiveMessage();
             await RefreshUsers();
             if (result == null || !result.Success)
             {
-                Alert = "新增用户失败:" + result.Message;
+                Alert = "新增用户失败:" + result.msg;
                 return false;
             }
             return true;
@@ -318,11 +318,11 @@ namespace CAE.Demo
             {
                 id = id
             });
-            var result = await Connection.ReceiveMessage<CommonResult>();
+            var result = await Connection.ReceiveMessage();
             await RefreshUsers();
             if (result == null || !result.Success)
             {
-                Alert = "删除用户失败:" + result.Message;
+                Alert = "删除用户失败:" + result.msg;
                 return false;
             }
             return true;
