@@ -2,7 +2,7 @@
 
 namespace CAE.DTO
 {
-    public class NewTaskRequest : DTOBase
+    public class NewTaskRequest : LoginedRequest
     {
         public Guid TaskID { get; set; }
         public override MessageType type => MessageType.创建任务;
