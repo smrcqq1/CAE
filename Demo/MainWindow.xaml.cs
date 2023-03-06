@@ -34,7 +34,7 @@ namespace CAE.Demo
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            await VM.Instance.刷新任务清单();
+            await VM.Instance.RefreshTasks();
         }
 
         private async void NewTask_Click(object sender, RoutedEventArgs e)

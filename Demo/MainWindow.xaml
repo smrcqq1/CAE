@@ -29,9 +29,8 @@
                         <GroupBox Grid.Row="1" Header="实时任务清单">
                             <DataGrid Grid.Row="1" ItemsSource="{Binding Tasks}">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="100" Header="任务名称" Binding="{Binding TaskName}"></DataGridTextColumn>
-                                    <DataGridTextColumn Width="100" Header="状态" Binding="{Binding State}"></DataGridTextColumn>
                                     <DataGridTextColumn Width="100" Header="名称" Binding="{Binding Name}"></DataGridTextColumn>
+                                    <DataGridTextColumn Width="100" Header="状态" Binding="{Binding State}"></DataGridTextColumn>
                                     <DataGridTextColumn Width="100" Header="创建时间" Binding="{Binding CreateTime}"></DataGridTextColumn>
                                     <DataGridTemplateColumn Width="*" Header="操作">
                                         <DataGridTemplateColumn.CellTemplate>
