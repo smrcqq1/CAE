@@ -106,11 +106,22 @@ namespace CAE.Demo
         #region 创建任务
         public async Task<bool> CreateTask(string[] files)
         {
+            var fis = files.Select(o => {
+                var f = new System.IO.FileInfo(o);
+                return f;
+            });
+            var name = fis.Where(o => o.Extension.Equals(".pbd")).SingleOrDefault();
+            if(name == null)
+            {
+                Alert= "请选择正确的待求解文件";
+                return false;
+            }
             var request = new NewTaskRequest()
             {
-                File = files.Select(o => { var f = new System.IO.FileInfo(o); return new UploadFile() { FileName = f.Name, FileSize = (int)f.Length }; }).ToArray(),
-                TaskID = Guid.NewGuid()
-            };
+                File = fis.Select(f => new UploadFile() { FileName = f.Name, FileSize = (int)f.Length }).ToArray(),
+                TaskName = name.Name.Remove(name.Name.IndexOf("."))
+                    //TaskID = Guid.NewGuid()
+                };
             var conn = new Connection();
             var res = await conn.Send(request);
             if (!res)
@@ -133,6 +144,10 @@ namespace CAE.Demo
             catch (Exception ex)
             {
                 Alert = "创建任务失败:" + ex.Message;
+            }
+            finally
+            {
+                conn.Dispose();
             }
             return false;
         }
