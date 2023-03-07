@@ -204,6 +204,10 @@ namespace CAE.Demo
         {
             return await ReceiveCommonResult(new 任务停止() { TaskID = taskID }, "停止任务");
         }
+        public async Task<bool> 任务删除(Guid taskID)
+        {
+            return await ReceiveCommonResult(new 任务删除() { TaskID = taskID }, "删除任务");
+        }
         async Task<bool> ReceiveCommonResult(LoginedRequest request, string failMessage)
         {
             var res = await Connection.Send(request);

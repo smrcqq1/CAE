@@ -162,5 +162,15 @@ namespace CAE.Demo
         {
             await VM.Instance.AddUser();
         }
+
+        private async void btn_Del_Click(object sender, RoutedEventArgs e)
+        {
+            var task = 获取选中任务(sender);
+            if (task == null)
+            {
+                return;
+            }
+            await VM.Instance.任务删除(task.ID);
+        }
     }
 }

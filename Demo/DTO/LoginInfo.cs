@@ -86,4 +86,9 @@ namespace CAE.DTO
         public Guid TaskID { get; set; }
         public override MessageType type => MessageType.下载文件;
     }
+    public class 任务删除 : LoginedRequest
+    {
+        public Guid TaskID { get; set; }
+        public override MessageType type => MessageType.下载文件;
+    }
 }
