@@ -141,6 +141,7 @@ namespace CAE.Demo
                 return;
             }
             var win = new Cancha(task.ID);
+            win.Owner = this;
             win.ShowDialog();
         }
 

@@ -51,7 +51,7 @@ namespace CAE.Demo.ViewModels
             try
             {
                 file.Process = 0;
-                var dir = Path.Combine(System.Environment.CurrentDirectory, "结果文件", task.Name);
+                var dir = Path.Combine(System.Environment.CurrentDirectory, "结果文件", task.ID.ToString());
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
@@ -72,6 +72,7 @@ namespace CAE.Demo.ViewModels
                             }
                             var res = await conn.Send(new DownLoadFileRequest()
                             {
+                                TaskID = task.ID,
                                 Name = file.Name,
                                 Start = file.Process,
                                 End = end
