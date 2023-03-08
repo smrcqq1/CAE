@@ -23,6 +23,10 @@
     <Style TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False"></Setter>
     </Style>
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+    </Style>
     <Style TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"></Setter>
     </Style>
