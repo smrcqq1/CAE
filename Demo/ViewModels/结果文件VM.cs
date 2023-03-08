@@ -22,7 +22,7 @@ namespace CAE.Demo.ViewModels
                 ID = taskID
             });
             if (!res) { return false; }
-            var result = await VM.Instance.Connection.ReceiveMessage<任务结果文件列表>();
+            var result = await VM.Instance.Connection.ReceiveMessage<CAE.DTO.FileInfo[]>();
             if (result == null || !result.Success || result.Data == null)
             {
                 VM.Instance.Alert = "获取任务结果文件列表失败";
@@ -34,10 +34,9 @@ namespace CAE.Demo.ViewModels
                 return false;
             }
             VM.Instance.Alert = "获取任务结果文件列表成功";
-            Files = result.Data.Files?.Select(o => new FileInfoVM()
+            Files = result.Data?.Select(o => new FileInfoVM()
             {
                 Name = o.Name,
-                FullName = o.FullName,
                 Length = o.Length
             }).ToList();
             return true;
@@ -73,7 +72,7 @@ namespace CAE.Demo.ViewModels
                             }
                             var res = await conn.Send(new DownLoadFileRequest()
                             {
-                                FullName = file.FullName,
+                                Name = file.Name,
                                 Start = file.Process,
                                 End = end
                             });

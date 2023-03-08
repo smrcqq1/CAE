@@ -17,20 +17,7 @@ namespace CAE.DTO
         /// </summary>
         public Guid ID { get; set; }
     }
-    /// <summary>
-    /// 第2步：服务器返回该任务下所有可以下载的文件清单
-    /// </summary>
-    public class 任务结果文件列表 : DTOBase
-    {
-        /// <summary>
-        /// 值为11
-        /// </summary>
-        public override MessageType type => MessageType.下载任务结果文件清单;
-        /// <summary>
-        /// 该任务下所有可以下载的文件清单
-        /// </summary>
-        public FileInfo[] Files { get; set; }
-    }
+    ///第2步：服务器返回该任务下所有可以下载的文件清单
     /// <summary>
     /// 单个可下载文件的具体信息
     /// </summary>
@@ -40,10 +27,6 @@ namespace CAE.DTO
         /// 显示名称，用于列表显示使用
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// 完整相对路径，用于下载,不显示给用户
-        /// </summary>
-        public string FullName { get; set; }
         /// <summary>
         /// 文件总长度，前端根据长度来决定是否分片下载
         /// </summary>
@@ -64,7 +47,11 @@ namespace CAE.DTO
         /// <summary>
         /// 要下载的文件路径，来自FileInfo
         /// </summary>
-        public string FullName { get; set; }
+        public Guid TaskID { get; set; }
+        /// <summary>
+        /// 文件名称
+        /// </summary>
+        public string Name { get; set; }
         /// <summary>
         /// 当前要下载的二进制文件的起始序号
         /// </summary>

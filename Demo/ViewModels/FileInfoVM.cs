@@ -12,10 +12,6 @@
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 完整相对路径，用于下载,不显示给用户
-        /// </summary>
-        public string FullName { get; set; }
-        /// <summary>
         /// 文件总长度，前端根据长度来决定是否分片下载
         /// </summary>
         public int Length { get; set; }

@@ -23,7 +23,7 @@
         <DataGrid Grid.Row="1" ItemsSource="{Binding Files}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="140" Header="文件名称" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Width="140" Header="大小" Binding="{Binding LengthStr}"></DataGridTextColumn>
+                <DataGridTextColumn Width="140" Header="大小" Binding="{Binding Length}"></DataGridTextColumn>
                 <DataGridTemplateColumn Width="*" Header="下载进度">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
