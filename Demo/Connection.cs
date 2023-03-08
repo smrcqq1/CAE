@@ -120,11 +120,9 @@ namespace CAE.Demo
                 {
                     return new Result<T>("请先建立连接");
                 }
-                var len = new byte[4];
-                await stream.ReadAsync(len, 0, 4);
+                var len = await ReceiveData();
                 var length = BitConverter.ToInt32(len, 0);
-                var buffer = new byte[length];
-                await stream.ReadAsync(buffer,0,length);
+                var buffer = await ReceiveData(length);
                 var str = System.Text.Encoding.UTF8.GetString(buffer);
                 VM.Instance.Message = str;
                 if (string.IsNullOrEmpty(str))
@@ -154,11 +152,9 @@ namespace CAE.Demo
                 {
                     return new CommonResult("请先建立连接");
                 }
-                var len = new byte[4];
-                await stream.ReadAsync(len, 0, 4);
+                var len = await ReceiveData();
                 var length = BitConverter.ToInt32(len, 0);
-                var buffer = new byte[length];
-                await stream.ReadAsync(buffer, 0, length);
+                var buffer = await ReceiveData(length);
                 var str = System.Text.Encoding.UTF8.GetString(buffer);
                 VM.Instance.Message = str;
                 if (string.IsNullOrEmpty(str))

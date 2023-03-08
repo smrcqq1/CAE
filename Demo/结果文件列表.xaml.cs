@@ -28,7 +28,6 @@ namespace CAE.Demo
             var el = sender as Button; 
             if (el == null) { return; }
             el.IsEnabled = false;
-            var tmp = el.Content;
             el.Content = "下载中...";
             var data = el.DataContext as ViewModels.FileInfoVM;
             if (data == null) { return; };
