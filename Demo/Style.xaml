@@ -22,6 +22,7 @@
     </Style>
     <Style TargetType="DataGrid">
         <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+        <Setter Property="Margin" Value="2"></Setter>
     </Style>
     <Style TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
