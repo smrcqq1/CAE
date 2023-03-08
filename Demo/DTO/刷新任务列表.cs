@@ -13,7 +13,7 @@ namespace CAE.DTO
         public Guid ID { get; set; }
         public string Name { get; set; }
 
-        public DateTime? CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
         public TaskState State { get; set; }
     }

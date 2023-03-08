@@ -120,9 +120,7 @@ namespace CAE.Demo
                 {
                     return new Result<T>("请先建立连接");
                 }
-                var len = await ReceiveData();
-                var length = BitConverter.ToInt32(len, 0);
-                var buffer = await ReceiveData(length);
+                var buffer = await ReceiveData();
                 var str = System.Text.Encoding.UTF8.GetString(buffer);
                 VM.Instance.Message = str;
                 if (string.IsNullOrEmpty(str))
@@ -134,7 +132,7 @@ namespace CAE.Demo
                     var data = Newtonsoft.Json.JsonConvert.DeserializeObject<Result<T>>(str);
                     return data;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return new Result<T>("服务器返回的消息无法被正确序列化:" + str);
                 }
@@ -152,9 +150,7 @@ namespace CAE.Demo
                 {
                     return new CommonResult("请先建立连接");
                 }
-                var len = await ReceiveData();
-                var length = BitConverter.ToInt32(len, 0);
-                var buffer = await ReceiveData(length);
+                var buffer = await ReceiveData();
                 var str = System.Text.Encoding.UTF8.GetString(buffer);
                 VM.Instance.Message = str;
                 if (string.IsNullOrEmpty(str))

@@ -22,19 +22,19 @@
         </StackPanel>
         <DataGrid Grid.Row="1" ItemsSource="{Binding Files}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="140" Header="文件名称" Binding="{Binding FileName}"></DataGridTextColumn>
-                <DataGridTextColumn Width="140" Header="大小" Binding="{Binding FileSize}"></DataGridTextColumn>
+                <DataGridTextColumn Width="140" Header="文件名称" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Width="140" Header="大小" Binding="{Binding Length}"></DataGridTextColumn>
                 <DataGridTemplateColumn Width="*" Header="下载进度">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ProgressBar Maximum="{Binding FileSize}" Value="{Binding Process}"/>
+                            <ProgressBar Maximum="{Binding Length}" Value="{Binding Process}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="140" Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=1}" Click="btn_Down_Click">下载</Button>
+                            <Button Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=0}" Click="btn_Down_Click">下载</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
