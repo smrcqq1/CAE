@@ -40,6 +40,7 @@ namespace CAE.Demo
             {
                 el.Content = "下载失败，点击重试";
             }
+            el.IsEnabled = true;
         }
     }
 }
