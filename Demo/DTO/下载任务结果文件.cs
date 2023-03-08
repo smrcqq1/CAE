@@ -26,11 +26,11 @@ namespace CAE.DTO
         /// <summary>
         /// 显示名称，用于列表显示使用
         /// </summary>
-        public string Name { get; set; }
+        public string FileName { get; set; }
         /// <summary>
         /// 文件总长度，前端根据长度来决定是否分片下载
         /// </summary>
-        public int Length { get; set; }
+        public int FileSize { get; set; }
     }
     /// <summary>
     /// 第三步：下载单个文件请求：前端使用这个命令请求后端，后端按照请求直接返回2进制数据即可

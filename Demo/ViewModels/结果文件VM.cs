@@ -36,8 +36,8 @@ namespace CAE.Demo.ViewModels
             VM.Instance.Alert = "获取任务结果文件列表成功";
             Files = result.Data?.Select(o => new FileInfoVM()
             {
-                Name = o.Name,
-                Length = o.Length
+                Name = o.FileName,
+                Length = o.FileSize
             }).ToList();
             return true;
         }
