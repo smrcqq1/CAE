@@ -34,7 +34,7 @@
                 <DataGridTemplateColumn Width="140" Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=0}" Click="btn_Down_Click">下载</Button>
+                            <Button Click="btn_Down_Click">下载</Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
