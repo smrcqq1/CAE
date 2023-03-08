@@ -26,4 +26,7 @@
     <Style TargetType="StackPanel">
         <Setter Property="Orientation" Value="Horizontal"></Setter>
     </Style>
+    <Style TargetType="ProgressBar">
+        <Setter Property="Margin" Value="2"></Setter>
+    </Style>
 </ResourceDictionary>
