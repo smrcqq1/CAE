@@ -23,10 +23,7 @@
                     state = false;
                     return;
                 }
-                else if(process >= Length)
-                {
-                    BtnContent = "重新下载";
-                }
+                BtnContent = "重新下载";
                 state = true;
             }
         }
