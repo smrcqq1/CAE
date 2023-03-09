@@ -55,7 +55,7 @@
                                                     <!--<StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=4}">
                                                         <Button Click="btn_Del_Click">删除</Button>
                                                     </StackPanel>-->
-                                                    <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=5}">
+                                                    <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=4}">
                                                         <Button Click="btn_Cancha_Click">查看残差数据</Button>
                                                         <Button Click="btn_Download_Click">下载结果文件</Button>
                                                     </StackPanel>
