@@ -3,10 +3,33 @@
     internal class FileInfoVM : NotifyModel
     {
         private int process;
+        private string btnContent = "下载";
+        private bool state;
+
         /// <summary>
         /// 下载进度
         /// </summary>
-        public int Process { get => process; set { process = value;OnPropertyChanged();OnPropertyChanged(nameof(State)); } }
+        public int Process
+        {
+            get => process;
+            set
+            {
+                process = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ProcessStr));
+                if (process > 0 && process < Length)
+                {
+                    BtnContent = "下载中...";
+                    state = false;
+                    return;
+                }
+                else if(process >= Length)
+                {
+                    BtnContent = "重新下载";
+                }
+                state = true;
+            }
+        }
         /// <summary>
         /// 显示名称，用于列表显示使用
         /// </summary>
@@ -18,18 +41,20 @@
         /// <summary>
         /// 标识文件下载状态
         /// </summary>
-        public int State
+        public bool State
         {
-            get {
-                if (process > 0)
-                {
-                    if(process < Length)
-                    {
-                        return 1;
-                    }
-                }
-                return 0;
+            get => state; set { state = value;OnPropertyChanged(); }
+        }
+        public string ProcessStr
+        {
+            get
+            {
+                return $"{Process} / {Length}";
             }
+        }
+        public string BtnContent
+        {
+            get => btnContent; set { btnContent = value; OnPropertyChanged(); }
         }
     }
 }

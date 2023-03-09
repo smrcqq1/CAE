@@ -10,16 +10,25 @@ namespace CAE.Demo.ViewModels
 {
     internal class 结果文件VM : NotifyModel
     {
+        public 结果文件VM(任务 task)
+        {
+            Task = task;
+            SaveDir = Path.Combine(System.Environment.CurrentDirectory, "结果文件", task.ID.ToString());
+        }
         private List<FileInfoVM> files;
+        任务 Task;
+        private string saveDir;
 
         public List<FileInfoVM> Files { get => files; set { files = value; OnPropertyChanged(); } }
+
+        public string SaveDir { get => saveDir; set { saveDir = value;OnPropertyChanged(); } }
         #region 请求下载结果文件列表
-        public async Task<bool> 请求下载结果文件列表(Guid taskID)
+        public async Task<bool> 请求下载结果文件列表()
         {
             VM.Instance.Alert = "发送任务结果文件列表请求";
             var res = await VM.Instance.Connection.Send(new 获取任务结果文件列表Request()
             {
-                ID = taskID
+                ID = Task.ID
             });
             if (!res) { return false; }
             var result = await VM.Instance.Connection.ReceiveMessage<CAE.DTO.FileInfo[]>();
@@ -45,18 +54,25 @@ namespace CAE.Demo.ViewModels
 
         #region 下载指定的结果文件
         const int SizePerDown = 1024;
-        public async Task<bool> 下载指定的结果文件(任务 task, FileInfoVM file)
+        public async Task<bool> 下载指定的结果文件(FileInfoVM file)
         {
             VM.Instance.Alert = "开始下载：" + file.Name;
             try
             {
                 file.Process = 0;
-                var dir = Path.Combine(System.Environment.CurrentDirectory, "结果文件", task.ID.ToString());
-                if (!Directory.Exists(dir))
+                try
                 {
-                    Directory.CreateDirectory(dir);
+                    if (!Directory.Exists(SaveDir))
+                    {
+                        Directory.CreateDirectory(SaveDir);
+                    }
+                }catch(Exception ex)
+                {
+                    VM.Instance.Alert = "选取的下载路径不正确，请重新选择！";
+                    DownFail(file);
+                    return false;
                 }
-                var path = Path.Combine(dir, file.Name);
+                var path = Path.Combine(SaveDir, file.Name);
                 using (var conn = new Connection())
                 {
                     var len = file.Length;
@@ -72,7 +88,7 @@ namespace CAE.Demo.ViewModels
                             }
                             var res = await conn.Send(new DownLoadFileRequest()
                             {
-                                TaskID = task.ID,
+                                TaskID = Task.ID,
                                 Name = file.Name,
                                 Start = file.Process,
                                 End = end
@@ -81,6 +97,7 @@ namespace CAE.Demo.ViewModels
                             {
                                 VM.Instance.Alert = "下载出错:" + file.Name;
                                 file.Process = -1;
+                                DownFail(file);
                                 return false;
                             }
                             var cnt = end - file.Process;
@@ -96,9 +113,20 @@ namespace CAE.Demo.ViewModels
             {
                 VM.Instance.Alert = "下载异常:" + ex.Message;
                 file.Process = -1;
+                DownFail(file);
                 return false;
             }
+            DownSucess(file);
             return true;
+        }
+
+        void DownFail(FileInfoVM file)
+        {
+            file.BtnContent = "下载失败，点击重试";
+        }
+        void DownSucess(FileInfoVM file)
+        {
+            file.BtnContent = "重新下载";
         }
         #endregion 下载指定的结果文件
     }

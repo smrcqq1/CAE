@@ -15,10 +15,14 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
+            <TextBox Width="180" Text="{Binding SaveDir,UpdateSourceTrigger=LostFocus}"></TextBox>
+            <Button Click="btn_ChangDir_Click">选择路径</Button>
+            <Button Click="btn_OpenDir_Click">打开文件夹</Button>
+            <Button Click="btn_DownAll_Click">全部下载</Button>
         </StackPanel>
         <DataGrid Grid.Row="1" ItemsSource="{Binding Files}">
             <DataGrid.Columns>
@@ -27,14 +31,17 @@
                 <DataGridTemplateColumn Width="*" Header="下载进度">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ProgressBar Maximum="{Binding Length}" Value="{Binding Process}"/>
+                            <Grid>
+                                <ProgressBar Maximum="{Binding Length}" Value="{Binding Process}"/>
+                                <TextBlock Text="{Binding ProcessStr}"></TextBlock>
+                            </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="140" Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="btn_Down_Click">下载</Button>
+                            <Button Content="{Binding BtnContent}" IsEnabled="{Binding State}" Click="btn_Down_Click"></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
