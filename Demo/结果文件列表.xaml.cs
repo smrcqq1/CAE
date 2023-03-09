@@ -59,10 +59,16 @@ namespace CAE.Demo
 
         private void btn_DownAll_Click(object sender, RoutedEventArgs e)
         {
+            var el = sender as Button;
+            if (el == null) { return; }
+            el.IsEnabled = false;
             var tasks = new List<Task>();
             foreach (var item in Model.Files)
             {
-                tasks.Add(Model.下载指定的结果文件(item));
+                if (item.State)
+                {
+                    tasks.Add(Model.下载指定的结果文件(item));
+                }
             }
             Task.WaitAll(tasks.ToArray());
         }
