@@ -57,6 +57,10 @@ namespace CAE.Demo
 
         private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+            if (tbx.IsFocused)
+            {
+                return;
+            }
             tbx.ScrollToEnd();
         }
     }
