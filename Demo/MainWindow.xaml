@@ -43,18 +43,18 @@
                                                     </Grid.Resources>
                                                     <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=1}">
                                                         <Button Click="btn_Pause_Click">暂停</Button>
-                                                        <Button Click="btn_Stop_Click">停止</Button>
+                                                        <Button Click="btn_Stop_Click">删除</Button>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=2}">
-                                                        <Button Click="btn_Stop_Click">停止</Button>
+                                                        <Button Click="btn_Pause_Click">暂停</Button>
                                                         <Button Click="btn_Cancha_Click">查看残差数据</Button>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=3}">
                                                         <Button Click="btn_Start_Click">开始</Button>
                                                     </StackPanel>
-                                                    <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=4}">
+                                                    <!--<StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=4}">
                                                         <Button Click="btn_Del_Click">删除</Button>
-                                                    </StackPanel>
+                                                    </StackPanel>-->
                                                     <StackPanel Visibility="{Binding State,Converter={StaticResource ActionButtonVisibility},ConverterParameter=5}">
                                                         <Button Click="btn_Cancha_Click">查看残差数据</Button>
                                                         <Button Click="btn_Download_Click">下载结果文件</Button>
