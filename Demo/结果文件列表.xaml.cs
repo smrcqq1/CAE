@@ -62,6 +62,10 @@ namespace CAE.Demo
             var el = sender as Button;
             if (el == null) { return; }
             el.IsEnabled = false;
+            if(Model.Files == null)
+            {
+                return;
+            }
             var tasks = new List<Task>();
             foreach (var item in Model.Files)
             {
