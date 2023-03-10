@@ -41,7 +41,7 @@ namespace CAE.Demo
                         result = await conn.ReceiveMessage<回传残差数据>();
                         if (result == null || !result.Success)
                         {
-                            VM.Instance.Alert = "获取残差数据失败:" + result.message;
+                            VM.Instance.Alert = "获取残差数据失败";
                             conn.Dispose();
                             return false;
                         }

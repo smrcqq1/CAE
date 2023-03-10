@@ -4,7 +4,7 @@
     {
         private int process;
         private string btnContent = "下载";
-        private bool state;
+        private bool state = true;
 
         /// <summary>
         /// 下载进度

@@ -62,14 +62,17 @@ namespace CAE.Demo
             var el = sender as Button;
             if (el == null) { return; }
             el.IsEnabled = false;
-            if(Model.Files == null)
+            if (Model.Files == null)
             {
                 return;
             }
             var tasks = new List<Task>();
             foreach (var item in Model.Files)
             {
-                tasks.Add(Model.下载指定的结果文件(item));
+                if (item.State)
+                {
+                    tasks.Add(Model.下载指定的结果文件(item));
+                }
             }
             Task.WaitAll(tasks.ToArray());
         }
