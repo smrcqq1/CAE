@@ -40,7 +40,7 @@ namespace CAE.Demo
                         return false;
                     }
                     VM.Instance.Cancha += result.Data.Result;
-                } while (result.Data.IsEnd);
+                } while (!result.Data.IsEnd);
             }
             catch (Exception ex)
             {
