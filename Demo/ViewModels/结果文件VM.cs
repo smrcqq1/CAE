@@ -56,10 +56,15 @@ namespace CAE.Demo.ViewModels
         const int SizePerDown = 1024;
         public async Task<bool> 下载指定的结果文件(FileInfoVM file)
         {
+            if (file.State)
+            {
+                return false;
+            }
             VM.Instance.Alert = "开始下载：" + file.Name;
+            file.BtnContent = "下载中...";
             try
             {
-                file.Process = 0;
+                file.Process = 1;
                 try
                 {
                     if (!Directory.Exists(SaveDir))

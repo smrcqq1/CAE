@@ -69,10 +69,7 @@ namespace CAE.Demo
             var tasks = new List<Task>();
             foreach (var item in Model.Files)
             {
-                if (item.State)
-                {
-                    tasks.Add(Model.下载指定的结果文件(item));
-                }
+                tasks.Add(Model.下载指定的结果文件(item));
             }
             Task.WaitAll(tasks.ToArray());
         }
