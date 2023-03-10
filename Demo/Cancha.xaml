@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:CAE.Demo"
         mc:Ignorable="d"
         Title="Cancha" Height="450" Width="600" WindowStartupLocation="CenterOwner">
-    <TextBox Width="auto" Name="tbx" TextChanged="TextBox_TextChanged" TextWrapping="Wrap" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"  Text="{Binding Cancha,Mode=OneWay}"></TextBox>
+    <TextBox Width="auto" Name="tbx" TextChanged="TextBox_TextChanged" TextWrapping="Wrap" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
 </Window>

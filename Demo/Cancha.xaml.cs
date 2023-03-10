@@ -11,36 +11,46 @@ namespace CAE.Demo
     {
         public Cancha(Guid id)
         {
-            InitializeComponent();
-            DataContext = VM.Instance;
-            Loaded += async (s,e) =>
+            Loaded += async (s, e) =>
             {
                 await GetCancha(id);
             };
+            Closing += Cancha_Closing;
+            InitializeComponent();
         }
+
+        private void Cancha_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Canceled = true;
+        }
+        bool Canceled = false;
         #region 获取残差数据
         public async Task<bool> GetCancha(Guid taskID)
         {
-            VM.Instance.Cancha = "";
             var conn = new Connection();
             try
             {
-                await conn.Send(new 回传残差数据Request()
-                {
-                    TaskID = taskID
-                });
-                Result<回传残差数据> result;
-                do
-                {
-                    result = await conn.ReceiveMessage<回传残差数据>();
-                    if (result == null || !result.Success)
+                return await Task.Run(async ()=> {
+                    await conn.Send(new 回传残差数据Request()
                     {
-                        VM.Instance.Alert = "获取残差数据失败:" + result.message;
-                        conn.Dispose();
-                        return false;
-                    }
-                    VM.Instance.Cancha += result.Data.Result;
-                } while (!result.Data.IsEnd);
+                        TaskID = taskID
+                    });
+                    Result<回传残差数据> result;
+                    do
+                    {
+                        result = await conn.ReceiveMessage<回传残差数据>();
+                        if (result == null || !result.Success)
+                        {
+                            VM.Instance.Alert = "获取残差数据失败:" + result.message;
+                            conn.Dispose();
+                            return false;
+                        }
+                        this.Dispatcher.Invoke(()=>{
+                            tbx.AppendText(result.Data.Result);
+                        });
+                    } while (!Canceled && !result.Data.IsEnd);
+                    return true;
+                });
             }
             catch (Exception ex)
             {
@@ -51,7 +61,6 @@ namespace CAE.Demo
             {
                 conn.Dispose();
             }
-            return true;
         }
         #endregion
 
